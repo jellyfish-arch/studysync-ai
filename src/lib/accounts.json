@@ -1,0 +1,12 @@
+{
+  "kal": {
+    "salt": "b4bd21927bc7e2552e89674eb533d6e4",
+    "hash": "2553ee758cc31a81e8d28ade88a7854d684d02e7fa9262ffb633576fd2b3615c",
+    "iterations": 150000
+  },
+  "jelly": {
+    "salt": "dfdd96c5a551389f9f52ebb094ba67f6",
+    "hash": "b5ba5c72dfb1ca1fee11de3ec42056bec486866afde056296177d773e39c8c23",
+    "iterations": 150000
+  }
+}

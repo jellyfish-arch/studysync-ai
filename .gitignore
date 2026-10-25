@@ -1,0 +1,12 @@
+node_modules
+dist
+.env
+.env.local
+.vercel
+*.log
+# Each account's data and the server secret stay on this computer
+data/
+data-sandbox/
+# The rendered intro video and its working files
+video/node_modules/
+video/out/

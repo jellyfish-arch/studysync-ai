@@ -1,0 +1,51 @@
+{
+  "name": "studysync-ai",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:web": "vite",
+    "server": "node server/index.js",
+    "build": "vite build",
+    "start": "node server/index.js --serve",
+    "preview": "vite preview",
+    "mcp": "node server/stdio.js",
+    "account": "node scripts/account.mjs",
+    "ai:check": "node scripts/ai-check.mjs",
+    "test": "vitest run",
+    "plan": "node scripts/plan.mjs",
+    "dev:sandbox": "node scripts/dev.mjs --sandbox",
+    "demo": "node scripts/demo.mjs serve",
+    "demo:reset": "node scripts/demo.mjs reset",
+    "demo:check": "node scripts/demo.mjs check",
+    "demo:dev": "node scripts/dev.mjs --sandbox --port 5174 --strictPort"
+  },
+  "dependencies": {
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource-variable/onest": "^5.3.1",
+    "@hugeicons/core-free-icons": "^4.3.5",
+    "@hugeicons/react": "^1.1.10",
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "@tabler/icons-react": "^3.49.0",
+    "canvas-confetti": "^1.9.4",
+    "clsx": "^2.1.1",
+    "motion": "^14.1.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-router-dom": "^7.18.4",
+    "zod": "^4.6.7",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@vitejs/plugin-react": "^6.1.2",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.3.4",
+    "vitest": "^5.0.3"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

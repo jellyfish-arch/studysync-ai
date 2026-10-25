@@ -1,0 +1,47 @@
+{
+  "hello": {
+    "seconds": 4.45,
+    "model": "gemini-2.5-flash-preview-tts",
+    "voice": "Leda"
+  },
+  "overview": {
+    "seconds": 3.53,
+    "model": "gemini-2.5-flash-preview-tts",
+    "voice": "Leda"
+  },
+  "today": {
+    "seconds": 4.61,
+    "model": "gemini-2.5-flash-preview-tts",
+    "voice": "Leda"
+  },
+  "subjects": {
+    "seconds": 5.92,
+    "model": "gemini-3.1-flash-tts-preview",
+    "voice": "Leda"
+  },
+  "missions": {
+    "seconds": 5.92,
+    "model": "gemini-3.1-flash-tts-preview",
+    "voice": "Leda"
+  },
+  "chat": {
+    "seconds": 6.16,
+    "model": "gemini-3.1-flash-tts-preview",
+    "voice": "Leda"
+  },
+  "connect": {
+    "seconds": 4.32,
+    "model": "gemini-3.1-flash-tts-preview",
+    "voice": "Leda"
+  },
+  "phones": {
+    "seconds": 2.49,
+    "model": "gemini-3.8-flash-tts",
+    "voice": "Leda"
+  },
+  "outro": {
+    "seconds": 2.69,
+    "model": "gemini-3.8-flash-tts",
+    "voice": "Leda"
+  }
+}

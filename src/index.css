@@ -1,0 +1,466 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------- Tokens ----------
+   One theme: OLED black. The chrome is neutral (white ink on black); colour
+   comes from meaning, never from a single brand hue:
+     - each app section has its own accent (src/lib/nav.js)
+     - each subject has its own colour (src/lib/ops.js)
+     - cards on the overview each take the colour of what they show
+   Any element can set --accent and add the `tint` class; everything "primary"
+   inside it (buttons, rings, bars, focus outlines) follows. No blue/purple,
+   no gradients for decoration. */
+:root {
+  color-scheme: dark;
+  --bg: #000000;
+  --surface: #0a0a0a;
+  --surface-2: #131313;
+  --surface-3: #1d1d1d;
+  --line: #1b1b1b;
+  --line-strong: #2a2a2a;
+  --ink: #f5f3ef;
+  --ink-2: #c4c0b8;
+  --muted: #8a867f;
+
+  --accent: #f5f3ef;
+  --primary: var(--accent);
+  --primary-soft: #1b1b1b;
+  --primary-ink: #f5f3ef;
+  --on-primary: #000000;
+
+  --gold: #facc15;
+  --rose: #ff4d8d;
+  --mint: #34d399;
+  --coral: #ff6b5b;
+  --teal: #2dd4bf;
+  --lime: #a3e635;
+  --orange: #ff9f43;
+  --sand: #d6c3a5;
+  --peach: #ffb38a;
+
+  --success: #34d399;
+  --success-soft: #0b2a1f;
+  --warning: #fbbf24;
+  --warning-soft: #2e2208;
+  --danger: #ff5470;
+  --danger-soft: #33101a;
+  --shadow-sm: 0 0 0 1px rgb(255 255 255 / 0.02);
+  --shadow-md: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 18px 40px -20px rgb(0 0 0 / 0.9);
+  --shadow-lg: 0 1px 0 rgb(255 255 255 / 0.04) inset, 0 30px 80px -24px rgb(0 0 0 / 1);
+}
+
+/* Re-derive the "primary" family from whatever --accent says here. */
+.tint {
+  --primary: var(--accent);
+  --primary-soft: color-mix(in srgb, var(--accent) 14%, #000);
+  --primary-ink: color-mix(in srgb, var(--accent) 72%, #fff);
+  --on-primary: #000000;
+}
+
+@theme inline {
+  --font-sans: 'Onest Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Bricolage Grotesque Variable', 'Onest Variable', ui-sans-serif, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Code', monospace;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-primary: var(--primary);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-ink: var(--primary-ink);
+  --color-on-primary: var(--on-primary);
+  --color-gold: var(--gold);
+  --color-rose: var(--rose);
+  --color-mint: var(--mint);
+  --color-coral: var(--coral);
+  --color-teal: var(--teal);
+  --color-lime: var(--lime);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+
+  --shadow-card: var(--shadow-md);
+  --shadow-soft: var(--shadow-sm);
+  --shadow-float: var(--shadow-lg);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--accent) 30%, transparent);
+    color: var(--ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--accent) 80%, #fff);
+    outline-offset: 2px;
+  }
+
+  input,
+  textarea,
+  select {
+    caret-color: var(--accent);
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  .mesh {
+    background: var(--surface);
+  }
+
+  /* Subject colour helpers: set --c on an element. */
+  .sc-bg {
+    background: var(--c);
+  }
+  .sc-soft {
+    background: color-mix(in srgb, var(--c) 14%, var(--surface));
+    color: color-mix(in srgb, var(--c) 78%, var(--ink));
+  }
+  .sc-text {
+    color: color-mix(in srgb, var(--c) 80%, var(--ink));
+  }
+  .sc-border {
+    border-color: color-mix(in srgb, var(--c) 40%, var(--line));
+  }
+
+  /* A card whose border lights up in its own accent on hover. */
+  .lift {
+    transition:
+      border-color 200ms,
+      background-color 200ms;
+  }
+  .lift:hover {
+    border-color: color-mix(in srgb, var(--accent) 38%, var(--line-strong));
+  }
+
+  /* Dots on a subject's colour band; they drift when you hover the card. */
+  .subject-dots {
+    background-image: radial-gradient(circle at 2px 2px, #000 1.4px, transparent 0);
+    background-size: 22px 22px;
+    transition: background-position 900ms var(--ease-out-expo);
+  }
+  .group:hover .subject-dots {
+    background-position: 11px -11px;
+  }
+
+  /* Dot paper behind headers and empty states. Static, no animation. */
+  .dots {
+    background-image: radial-gradient(circle at 1px 1px, rgb(255 255 255 / 0.07) 1px, transparent 0);
+    background-size: 18px 18px;
+  }
+
+  /* Form controls */
+  .field-label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+
+  .input {
+    width: 100%;
+    min-height: 2.6rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+    font-size: 0.9rem;
+    transition:
+      border-color 150ms,
+      box-shadow 150ms;
+  }
+
+  .input::placeholder {
+    color: var(--muted);
+  }
+
+  .input:hover {
+    border-color: color-mix(in srgb, var(--accent) 30%, var(--line-strong));
+  }
+
+  .input:focus {
+    outline: none;
+    border-color: color-mix(in srgb, var(--accent) 75%, var(--line-strong));
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent);
+  }
+
+  select.input {
+    appearance: none;
+    padding-right: 2.2rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%238a867f' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m1 1.5 5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.8rem center;
+  }
+
+  input[type='date'].input::-webkit-calendar-picker-indicator,
+  input[type='time'].input::-webkit-calendar-picker-indicator {
+    filter: invert(0.8);
+  }
+}
+
+/* ---------- Line-art motion ----------
+   Hovering an element with .draw redraws its outline icon stroke by stroke.
+   Tabler paths are short, so a 60-unit dash covers each of them. */
+@keyframes draw-line {
+  from {
+    stroke-dashoffset: 60;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.draw:hover svg.tabler-icon path:not([stroke='none']),
+.draw:hover svg.tabler-icon circle,
+.draw:hover svg.tabler-icon rect,
+.draw:focus-visible svg.tabler-icon path:not([stroke='none']),
+.draw-now svg.tabler-icon path:not([stroke='none']),
+.draw-now svg.tabler-icon circle,
+.draw-now svg.tabler-icon rect {
+  stroke-dasharray: 60;
+  animation: draw-line 700ms var(--ease-out-expo, ease-out) both;
+}
+
+/* A hand-drawn underline that draws itself (page titles). */
+.scribble path {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: scribble 900ms 250ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+@keyframes scribble {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---------- Custom cursor ----------
+   Only on mouse/trackpad. The real cursor is hidden and an outline pointer
+   (src/components/Cursor.jsx) is drawn exactly at the pointer, never lagging. */
+@media (pointer: fine) {
+  html.has-cursor,
+  html.has-cursor * {
+    cursor: none !important;
+  }
+}
+
+/* The little "click" marks next to the cursor tip burst outward on press. */
+.cursor-burst path {
+  animation: cursor-burst 260ms ease-out;
+}
+@keyframes cursor-burst {
+  50% {
+    transform: translate(1.5px, -1.5px);
+  }
+}
+
+/* Landing marquee (ScrollVelocity) */
+.landing-marquee {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4.2vw, 3.4rem);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #f5f3ef;
+}
+.scroller {
+  font-family: var(--font-display);
+  filter: none;
+}
+
+/* Toasts sit bottom-left of the page so they never cover Yuuki's corner. */
+@media (min-width: 1024px) {
+  .app-toast.swipe-toast[data-inline='false'] {
+    left: calc(17rem + 2rem);
+    right: auto;
+  }
+}
+
+/* SwipeToast: sit above the phone tab bar */
+@media (max-width: 1023px) {
+  .app-toast.swipe-toast[data-inline='false'] {
+    bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+    left: 1rem;
+    right: 1rem;
+  }
+}
+
+/* SpringCheck rows (blocks, topics, assignments) */
+.block-check.spring-check,
+.topic-check.spring-check {
+  min-height: 0;
+  width: 100%;
+  text-align: left;
+}
+.block-check .spring-check__word {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.topic-check .spring-check__word {
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+/* Yuuki's speech bubble tail */
+.bubble-tail {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--line-strong);
+  transform: rotate(45deg);
+}
+
+/* The spotlight cut-out Yuuki uses to point at part of the page. */
+.guide-ring {
+  box-shadow:
+    0 0 0 2px var(--accent),
+    0 0 0 9999px rgb(0 0 0 / 0.62);
+  border-radius: 14px;
+  transition:
+    top 350ms var(--ease-out-expo),
+    left 350ms var(--ease-out-expo),
+    width 350ms var(--ease-out-expo),
+    height 350ms var(--ease-out-expo);
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--danger) 45%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 10px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+.live-dot {
+  animation: pulse-ring 1.8s infinite;
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+.type-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: currentColor;
+  animation: caret-blink 1s steps(1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+html.reduce-motion *,
+html.reduce-motion *::before,
+html.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+/* ---------- Phones and tablets ----------
+   Grid columns shrink instead of pushing the page sideways; no grey flash on
+   tap; text inputs at 16px so iPhones don't zoom in on focus; and anything
+   tappable is at least ~36px tall (small icons get an invisible larger hit
+   area with .tap). */
+.grid > * {
+  min-width: 0;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+@media (pointer: coarse) {
+  .input,
+  input:not([type='checkbox']):not([type='radio']):not([type='range']),
+  select,
+  textarea {
+    font-size: 16px;
+  }
+  [role='radiogroup'] > button {
+    min-height: 2.25rem;
+  }
+  .block-check.spring-check,
+  .topic-check.spring-check {
+    min-height: 2.25rem;
+  }
+  .tap {
+    position: relative;
+  }
+  .tap::after {
+    content: '';
+    position: absolute;
+    inset: -0.65rem;
+  }
+}
+
+/* Controls that appear on hover (delete, edit, drag) must be visible without
+   a mouse, or phones could never reach them. */
+@media (hover: none) {
+  [class*='group-hover:opacity-100']:not(.hover-only) {
+    opacity: 1;
+  }
+}
