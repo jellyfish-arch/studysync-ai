@@ -160,7 +160,9 @@ There are 118 tests covering:
 
 ## Deploy (free)
 
-StudySync runs as one Node web service (the app, sync, Mission Planner, Yuuki's AI and MCP), so it needs a host that keeps a server running. It is set up for **Render**:
+**Public link (GitHub Pages):** https://jellyfish-arch.github.io/studysync-ai/ is published by `.github/workflows/pages.yml` on every push to `main`. It is the app without its server: data stays in each visitor's browser and Yuuki uses her guide mode. Yuuki's AI chat, Quiz me, Mission Planner and Connect AI need the server (`npm run demo` locally, or Render below).
+
+The full StudySync runs as one Node web service (the app, sync, Mission Planner, Yuuki's AI and MCP), so it needs a host that keeps a server running. It is set up for **Render**:
 
 1. Push the repo to GitHub and create a **Web Service** on https://render.com from it.
 2. Build command `npm ci && npm run build`, start command `npm start`, Node 22 or newer.

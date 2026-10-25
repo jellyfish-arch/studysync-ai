@@ -1,0 +1,48 @@
+# Publishes the app (without its server) to GitHub Pages on every push to main:
+# https://jellyfish-arch.github.io/studysync-ai/
+# Data stays in each visitor's browser; Yuuki's AI chat, Quiz me, Mission
+# Planner and Connect AI need the StudySync server (npm run demo).
+name: GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build -- --base=/${{ github.event.repository.name }}/
+      # Pages has no rewrites: a link straight to /app/planner gets 404.html,
+      # which is the app itself, and the app opens the right page.
+      - run: cp dist/index.html dist/404.html
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -2,16 +2,16 @@
   "name": "StudySync AI",
   "short_name": "StudySync",
   "description": "Your syllabus, exams, assignments and study time in one place, with Yuuki, your study companion.",
-  "id": "/",
-  "start_url": "/app",
-  "scope": "/",
+  "id": "./",
+  "start_url": "./app",
+  "scope": "./",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#000000",
   "theme_color": "#000000",
   "categories": ["education", "productivity"],
   "icons": [
-    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
   ]
 }
